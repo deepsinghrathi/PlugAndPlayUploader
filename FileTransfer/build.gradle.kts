@@ -2,36 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    `maven-publish`
+    id("maven-publish")
 }
 
 group = "com.corapana.deepsinghrathi"
 version = "1.0.0"
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"]) // <-- this now works after changing to library
-                groupId = "com.corapana.deepsinghrathi"
-                artifactId = "filetransfer"
-                version = "1.0.0"
-            }
-        }
-
-        repositories {
-            maven {
-                url = uri("https://maven.pkg.github.com/deepsinghrathi/PlugAndPlayUploader")
-                credentials {
-                    username = findProperty("repoUser") as String? ?: System.getenv("REPO_USER")
-                    password =
-                        findProperty("repoPassword") as String? ?: System.getenv("REPO_PASSWORD")
-                }
-            }
-        }
-    }
-}
-
 
 android {
     namespace = "com.corapana.filetransfer"
@@ -98,4 +73,29 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:5.1.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"]) // <-- this now works after changing to library
+                groupId = "com.corapana.deepsinghrathi"
+                artifactId = "filetransfer"
+                version = "1.0.0"
+            }
+        }
+
+//        repositories {
+//            maven {
+//                url = uri("https://maven.pkg.github.com/deepsinghrathi/PlugAndPlayUploader")
+//                credentials {
+//                    username = findProperty("repoUser") as String? ?: System.getenv("REPO_USER")
+//                    password =
+//                        findProperty("repoPassword") as String? ?: System.getenv("REPO_PASSWORD")
+//                }
+//            }
+//        }
+    }
 }
