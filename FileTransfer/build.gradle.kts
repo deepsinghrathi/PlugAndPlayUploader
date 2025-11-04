@@ -21,7 +21,7 @@ afterEvaluate {
 
         repositories {
             maven {
-                url = uri("https://your.repo.url/releases")
+                url = uri("https://maven.pkg.github.com/deepsinghrathi/PlugAndPlayUploader")
                 credentials {
                     username = findProperty("repoUser") as String? ?: System.getenv("REPO_USER")
                     password =
